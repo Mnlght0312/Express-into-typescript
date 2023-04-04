@@ -1,9 +1,13 @@
-import { create, getAll } from "../controller/movie.controller";
+// movie.router.ts
 
-import { Router } from "express";
+import express from "express";
+import { create, getAll, update, remove } from "../controller/movie.controller";
 
-const route = Router();
+const router = express.Router();
 
-route.get("/movie", getAll).post("/movie", create);
+router.post("/", create);
+router.get("/", getAll);
+router.put("/:id", update);
+router.delete("/:id", remove);
 
-export default route;
+export default router;
