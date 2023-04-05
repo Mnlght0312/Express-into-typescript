@@ -30,7 +30,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.create = create;
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const movies = yield movie_model_1.default.find({}).limit(30);
+        const movies = yield movie_model_1.default.find({}).limit(32);
         res.json({ status: true, result: movies });
     }
     catch (error) {
