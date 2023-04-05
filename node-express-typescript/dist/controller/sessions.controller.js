@@ -1,5 +1,5 @@
 "use strict";
-// movie.controller.ts
+// sessions.controller.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -17,56 +17,56 @@ exports.remove = exports.update = exports.getAll = exports.create = void 0;
 const movie_model_1 = __importDefault(require("../model/movie.model"));
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const movieDto = req.body;
-        const movie = new movie_model_1.default(movieDto);
-        yield movie.save();
-        res.status(201).json(movie);
+        const sessionsDto = req.body;
+        const sessions = new movie_model_1.default(sessionsDto);
+        yield sessions.save();
+        res.status(201).json(sessions);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred while creating the movie" });
+        res.status(500).json({ error: "An error occurred while creating the session" });
     }
 });
 exports.create = create;
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const movies = yield movie_model_1.default.find({}).limit(5);
-        res.json({ status: true, result: movies });
+        const sessions = yield movie_model_1.default.find();
+        res.json(sessions);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred while retrieving movies" });
+        res.status(500).json({ error: "An error occurred while retrieving sessions" });
     }
 });
 exports.getAll = getAll;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
     try {
-        const movieDto = req.body;
-        const updatedMovie = yield movie_model_1.default.findByIdAndUpdate(id, movieDto, { new: true });
-        if (!updatedMovie) {
-            return res.status(404).json({ error: "Movie not found" });
+        const id = req.params.id;
+        const sessionsDto = req.body;
+        const updatedSession = yield movie_model_1.default.findByIdAndUpdate(id, sessionsDto, { new: true });
+        if (!updatedSession) {
+            return res.status(404).json({ error: "Session not found" });
         }
-        res.json(updatedMovie);
+        res.json(updatedSession);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred while updating the movie" });
+        res.status(500).json({ error: "An error occurred while updating the comment" });
     }
 });
 exports.update = update;
 const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
-        const deletedMovie = yield movie_model_1.default.findByIdAndDelete(id);
-        if (!deletedMovie) {
-            return res.status(404).json({ error: "Movie not found" });
+        const deletedComment = yield movie_model_1.default.findByIdAndDelete(id);
+        if (!deletedComment) {
+            return res.status(404).json({ error: "Comment not found" });
         }
-        res.json(deletedMovie);
+        res.json(deletedComment);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred while deleting the movie" });
+        res.status(500).json({ error: "An error occurred while deleting the comment" });
     }
 });
 exports.remove = remove;

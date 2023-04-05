@@ -18,8 +18,8 @@ const create = async (req: Request, res: Response) => {
 
 const getAll = async (req: Request, res: Response) => {
   try {
-    const movies = await Movie.find();
-    res.json(movies);
+    const movies = await Movie.find({}).limit(5);
+    res.json({status : true , result : movies});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while retrieving movies" });
@@ -27,8 +27,9 @@ const getAll = async (req: Request, res: Response) => {
 };
 
 const update = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
   try {
-    const id: string = req.params.id;
+   
     const movieDto: MovieDto = req.body;
     const updatedMovie = await Movie.findByIdAndUpdate(id, movieDto, { new: true });
     if (!updatedMovie) {
